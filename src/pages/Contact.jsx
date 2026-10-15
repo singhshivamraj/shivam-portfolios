@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Footer from "../components/Footer";
 import {
   Send,
   Phone,
@@ -47,6 +48,7 @@ const Contact = () => {
     "shrink-0 text-indigo-400";
 
   return (
+    <>
     <section className="relative w-full overflow-hidden bg-black text-white">
       <div className="pointer-events-none absolute inset-0 z-0">
         <TubesCursor />
@@ -215,11 +217,11 @@ const Contact = () => {
           </motion.form>
         </div>
 
-        <footer className="mt-8 border-t border-white/10 pt-5 text-center text-xs text-gray-500">
-          © {new Date().getFullYear()} Shivam Raj. All rights reserved.
-        </footer>
+        
       </div>
     </section>
+    <Footer/>
+    </>
   );
 };
 

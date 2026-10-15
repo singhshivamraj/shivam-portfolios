@@ -1,6 +1,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
+import Footer from "../components/Footer";
 import {
   Code2,
   GraduationCap,
@@ -42,6 +43,7 @@ const journey = [
 
 export default function Journey() {
   return (
+    <>
     <section className="relative min-h-screen overflow-hidden bg-transparent px-5 pb-10 pt-24 text-white md:px-10 md:pt-28">
       {/* Tube cursor background */}
       <div className="pointer-events-none absolute inset-0 z-0">
@@ -116,5 +118,7 @@ export default function Journey() {
         </div>
       </div>
     </section>
+    <Footer/>
+    </>
   );
 }

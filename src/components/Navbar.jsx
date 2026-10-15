@@ -15,8 +15,17 @@
 
 
 
+
+
+
+
+
+
+
+
+
 import React, { useState, useRef, useEffect } from "react";
-import { Linkedin, Instagram, Mail, Menu, Github } from "lucide-react";
+import { Linkedin, Instagram, Mail, Menu, Github, X } from "lucide-react";
 import {
   motion,
   AnimatePresence,
@@ -277,45 +286,78 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* MOBILE MENU OVERLAY
-          Rendered outside the nav on purpose: the nav uses backdrop-blur and 3D transforms,
-          which would otherwise trap a "fixed" child inside the 80px bar instead of the full screen. */}
+      {/* MOBILE SIDE DRAWER
+          Nav ke bahar render hota hai (nav mein backdrop-blur aur 3D transform hai,
+          jisse "fixed" child sirf nav ke andar simat jaata). */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div
-            key="mobile-menu"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Menu"
-            initial={{ opacity: 0, y: -30 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-[110] flex flex-col items-center justify-center gap-5 sm:gap-6 overflow-y-auto bg-black/90 px-6 py-20 backdrop-blur-xl xl:hidden"
-          >
-            {navLinks.map(({ name, path }) => (
-              <Link
-                key={name}
-                to={path}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-white text-2xl sm:text-3xl font-bold hover:text-indigo-400 transition-colors"
-              >
-                {name}
-              </Link>
-            ))}
-
-            {/* Social icons live here on phones, where the navbar has no room for them */}
-            {renderSocials("flex gap-3 pt-4 md:hidden")}
-
-            <button
-              type="button"
+          <>
+            {/* Dark backdrop: bahar tap karne par menu band */}
+            <motion.div
+              key="backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
               onClick={() => setIsMobileMenuOpen(false)}
-              aria-label="Close menu"
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 flex h-11 w-11 items-center justify-center text-white text-4xl"
+              aria-hidden="true"
+              className="fixed inset-0 z-[105] bg-black/60 backdrop-blur-sm xl:hidden"
+            />
+
+            {/* Side drawer (right se khulta hai) */}
+            <motion.aside
+              key="drawer"
+              role="dialog"
+              aria-modal="true"
+              aria-label="Menu"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.35, ease: [0.32, 0.72, 0, 1] }}
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={{ left: 0, right: 0.5 }}
+              onDragEnd={(_, info) => {
+                if (info.offset.x > 80 || info.velocity.x > 500) {
+                  setIsMobileMenuOpen(false);
+                }
+              }}
+              className="fixed right-0 top-0 z-[110] flex h-[100dvh] w-[80%] max-w-sm flex-col overflow-y-auto border-l border-white/10 bg-[#0b0b14] px-6 pb-8 pt-5 shadow-2xl xl:hidden"
             >
-              ×
-            </button>
-          </motion.div>
+              {/* Drawer header */}
+              <div className="mb-6 flex items-center justify-between">
+                <span className="bg-gradient-to-r from-indigo-400 via-violet-500 to-purple-500 bg-clip-text text-2xl font-black uppercase tracking-tighter text-transparent">
+                  SHIVAM
+                </span>
+
+                <button
+                  type="button"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  aria-label="Close menu"
+                  className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/10 text-white transition-colors hover:bg-white/20"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+
+              {/* Links */}
+              <nav className="flex flex-col">
+                {navLinks.map(({ name, path }) => (
+                  <Link
+                    key={name}
+                    to={path}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="border-b border-white/5 py-3.5 text-lg font-semibold text-gray-300 transition-colors hover:text-indigo-400"
+                  >
+                    {name}
+                  </Link>
+                ))}
+              </nav>
+
+              {/* Social icons (neeche) */}
+              {renderSocials("mt-auto flex gap-3 pt-8 md:hidden")}
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
     </>
