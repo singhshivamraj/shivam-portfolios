@@ -179,7 +179,7 @@ const About = () => {
   const stackedTextTop = "calc(2.5rem + min(294px, 28svh) + 1.25rem)";
 
   return (
-    <section ref={sectionRef} className="relative w-full -mt-24 bg-black">
+    <section ref={sectionRef} className="relative w-full -mt-22 bg-black">
 
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 z-0">

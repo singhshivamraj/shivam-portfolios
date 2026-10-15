@@ -1,46 +1,46 @@
-// import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-// const TubesCursor = () => {
-//   const canvasRef = useRef(null);
-//   const appRef = useRef(null);
-//   const randomColors = (count) => {
-//     return new Array(count).fill(0).map(() =>
-//       "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')
-//     );
-//   };
+const TubesCursor = () => {
+  const canvasRef = useRef(null);
+  const appRef = useRef(null);
+  const randomColors = (count) => {
+    return new Array(count).fill(0).map(() =>
+      "#" + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')
+    );
+  };
 
-//   useEffect(() => {
-//     const initTimer = setTimeout(() => {
-//       import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js')
-//         .then(module => {
-//           const Tubes = module.default;
-//           if (canvasRef.current && !appRef.current) {
-//             appRef.current = Tubes(canvasRef.current, {
-//               tubes: {
-//                 colors: ["#5e72e4", "#8965e0", "#f5365c"],
-//                 lights: { intensity: 15, colors: ["#21d4fd", "#b721ff", "#f4d03f", "#11cdef"] }
-//               }
-//             });
-//           }
-//         });
-//     }, 100);
+  useEffect(() => {
+    const initTimer = setTimeout(() => {
+      import('https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js')
+        .then(module => {
+          const Tubes = module.default;
+          if (canvasRef.current && !appRef.current) {
+            appRef.current = Tubes(canvasRef.current, {
+              tubes: {
+                colors: ["#5e72e4", "#8965e0", "#f5365c"],
+                lights: { intensity: 15, colors: ["#21d4fd", "#b721ff", "#f4d03f", "#11cdef"] }
+              }
+            });
+          }
+        });
+    }, 100);
 
-//     return () => {
-//       clearTimeout(initTimer);
-//       if (appRef.current && typeof appRef.current.dispose === 'function')
-//         appRef.current.dispose();
-//     };
-//   }, []);
+    return () => {
+      clearTimeout(initTimer);
+      if (appRef.current && typeof appRef.current.dispose === 'function')
+        appRef.current.dispose();
+    };
+  }, []);
 
-//   return (
-//     <canvas
-//       ref={canvasRef}
-//       className="fixed inset-0 -z-20 pointer-events-none w-screen h-screen block bg-[#0a0a1a]"
-//     />
-//   );
-// };
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 -z-20 pointer-events-none w-screen h-screen block bg-[#0a0a1a]"
+    />
+  );
+};
 
-// export default TubesCursor;
+export default TubesCursor;
 
 
 
@@ -227,61 +227,61 @@
 
 
 
-import { useEffect, useRef } from "react";
+// import { useEffect, useRef } from "react";
 
-const TubesCursor = () => {
-  const canvasRef = useRef(null);
-  const appRef = useRef(null);
+// const TubesCursor = () => {
+//   const canvasRef = useRef(null);
+//   const appRef = useRef(null);
 
-  useEffect(() => {
-    let cancelled = false;
+//   useEffect(() => {
+//     let cancelled = false;
 
-    const initTimer = setTimeout(async () => {
-      try {
-        const module = await import(
-          /* @vite-ignore */
-          "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
-        );
+//     const initTimer = setTimeout(async () => {
+//       try {
+//         const module = await import(
+//           /* @vite-ignore */
+//           "https://cdn.jsdelivr.net/npm/threejs-components@0.0.19/build/cursors/tubes1.min.js"
+//         );
 
-        // Unmount ho gaya ho ya pehle se init ho chuka ho to kuch mat karo
-        if (cancelled || !canvasRef.current || appRef.current) return;
+//         // Unmount ho gaya ho ya pehle se init ho chuka ho to kuch mat karo
+//         if (cancelled || !canvasRef.current || appRef.current) return;
 
-        const Tubes = module.default;
-        appRef.current = Tubes(canvasRef.current, {
-          tubes: {
-            colors: ["#5e72e4", "#8965e0", "#f5365c"],
-            lights: {
-              intensity: 15,
-              colors: ["#21d4fd", "#b721ff", "#f4d03f", "#11cdef"],
-            },
-          },
-        });
-      } catch (err) {
-        console.error("TubesCursor load failed:", err);
-      }
-    }, 100);
+//         const Tubes = module.default;
+//         appRef.current = Tubes(canvasRef.current, {
+//           tubes: {
+//             colors: ["#5e72e4", "#8965e0", "#f5365c"],
+//             lights: {
+//               intensity: 15,
+//               colors: ["#21d4fd", "#b721ff", "#f4d03f", "#11cdef"],
+//             },
+//           },
+//         });
+//       } catch (err) {
+//         console.error("TubesCursor load failed:", err);
+//       }
+//     }, 100);
 
-    return () => {
-      cancelled = true;
-      clearTimeout(initTimer);
-      if (appRef.current && typeof appRef.current.dispose === "function") {
-        appRef.current.dispose();
-      }
-      appRef.current = null;
-    };
-  }, []);
+//     return () => {
+//       cancelled = true;
+//       clearTimeout(initTimer);
+//       if (appRef.current && typeof appRef.current.dispose === "function") {
+//         appRef.current.dispose();
+//       }
+//       appRef.current = null;
+//     };
+//   }, []);
 
-  return (
-    // FIX: library canvas ka size parent se leti hai.
-    // Ye wrapper hamesha viewport jitna hai, to canvas kabhi page jitna
-    // lamba (10000px+) nahi banega aur GPU texture limit (8192) cross nahi hogi.
-    <div
-      className="pointer-events-none fixed inset-0 -z-20 overflow-hidden"
-      style={{ width: "100vw", height: "100vh" }}
-    >
-      <canvas ref={canvasRef} className="block h-full w-full bg-[#0a0a1a]" />
-    </div>
-  );
-};
+//   return (
+//     // FIX: library canvas ka size parent se leti hai.
+//     // Ye wrapper hamesha viewport jitna hai, to canvas kabhi page jitna
+//     // lamba (10000px+) nahi banega aur GPU texture limit (8192) cross nahi hogi.
+//     <div
+//       className="pointer-events-none fixed inset-0 -z-20 overflow-hidden"
+//       style={{ width: "100vw", height: "100vh" }}
+//     >
+//       <canvas ref={canvasRef} className="block h-full w-full bg-[#0a0a1a]" />
+//     </div>
+//   );
+// };
 
-export default TubesCursor;
+// export default TubesCursor;
