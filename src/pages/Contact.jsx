@@ -96,7 +96,7 @@ const Contact = () => {
                 className="flex items-center gap-3 text-sm text-gray-300 transition hover:text-white"
               >
                 <Phone size={19} className={iconStyle} />
-                <span>+91 XXXXX XXXXX</span>
+                <span>+91 7667767155</span>
               </a>
 
               <a
@@ -104,7 +104,7 @@ const Contact = () => {
                 className="flex items-center gap-3 text-sm text-gray-300 transition hover:text-white"
               >
                 <Mail size={19} className={iconStyle} />
-                <span>your-email@example.com</span>
+                <span>shivamraj6436@gmail.com</span>
               </a>
 
               <div className="flex items-center gap-3 text-sm text-gray-300">
