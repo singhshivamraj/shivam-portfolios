@@ -30,7 +30,7 @@ const socials = [
   {
     label: "Instagram",
     icon: Instagram,
-    href: "https://www.instagram.com/",
+    href: "https://www.instagram.com/shivamm.63/",
   },
 ];
 
@@ -130,7 +130,7 @@ export default function Footer() {
               ))}
 
               <a
-                href="mailto:your-email@example.com"
+               href="https://mail.google.com/mail/?view=cm&fs=1&to=shivamraj6436@gmail.com"
                 aria-label="Email"
                 className="rounded-xl border border-white/10 bg-white/[0.04] p-3 text-gray-400 transition hover:border-indigo-400/50 hover:bg-indigo-500/10 hover:text-indigo-300"
               >

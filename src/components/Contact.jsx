@@ -1,28 +1,19 @@
-
-
-
-
-
-
-
-
-
-
-
-
-import React, { useRef, useState } from 'react';
-import emailjs from '@emailjs/browser';
+import React, { useRef, useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
   motion,
   useScroll,
   useTransform,
   AnimatePresence,
-} from 'framer-motion';
+} from "framer-motion";
 
+import { FaEnvelope, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 /* CONTACT — DIGITAL DREAMS GRADIENT THEME */
 
-const GRADIENT_CLASS = 'from-indigo-400 via-purple-400 to-pink-400';
-const ACCENT_RGB = '167, 139, 250';
+const GRADIENT_CLASS = "from-indigo-400 via-purple-400 to-pink-400";
+const ACCENT_RGB = "167, 139, 250";
 
 const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
@@ -37,12 +28,7 @@ const GridLines = () => (
     style={{ opacity: 0.04 }}
   >
     <defs>
-      <pattern
-        id="grid"
-        width="60"
-        height="60"
-        patternUnits="userSpaceOnUse"
-      >
+      <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
         <path
           d="M 60 0 L 0 0 0 60"
           fill="none"
@@ -59,15 +45,15 @@ const GridLines = () => (
 const OrbitRing = ({ size, duration, reverse, opacity = 0.12 }) => (
   <motion.div
     animate={{ rotate: reverse ? -360 : 360 }}
-    transition={{ duration, repeat: Infinity, ease: 'linear' }}
+    transition={{ duration, repeat: Infinity, ease: "linear" }}
     className="absolute rounded-full pointer-events-none"
     style={{
       width: size,
       height: size,
       border: `1px solid rgba(${ACCENT_RGB},${opacity})`,
-      top: '50%',
-      left: '50%',
-      transform: 'translate(-50%,-50%)',
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%,-50%)",
     }}
   >
     <div
@@ -108,31 +94,27 @@ const ContactCard = ({ icon, label, value, href, copyText, delay }) => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (error) {
-      console.error('Copy failed:', error);
+      console.error("Copy failed:", error);
     }
   };
 
   return (
     <motion.a
       href={href}
-      target={href?.startsWith('http') ? '_blank' : undefined}
+      target={href?.startsWith("http") ? "_blank" : undefined}
       rel="noreferrer"
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ delay, type: 'spring', stiffness: 110, damping: 18 }}
+      transition={{ delay, type: "spring", stiffness: 110, damping: 18 }}
       onHoverStart={() => setHov(true)}
       onHoverEnd={() => setHov(false)}
       className="relative flex items-center gap-6 p-6 rounded-2xl cursor-pointer overflow-hidden group/card bg-white/[0.015] border border-white/5"
       style={{
-        borderColor: hov
-          ? 'rgba(167,139,250,0.22)'
-          : 'rgba(255,255,255,0.05)',
-        background: hov
-          ? 'rgba(167,139,250,0.04)'
-          : 'rgba(255,255,255,0.015)',
-        boxShadow: hov ? `0 0 40px rgba(${ACCENT_RGB},0.1)` : 'none',
-        transition: 'all 0.35s ease',
+        borderColor: hov ? "rgba(167,139,250,0.22)" : "rgba(255,255,255,0.05)",
+        background: hov ? "rgba(167,139,250,0.04)" : "rgba(255,255,255,0.015)",
+        boxShadow: hov ? `0 0 40px rgba(${ACCENT_RGB},0.1)` : "none",
+        transition: "all 0.35s ease",
       }}
     >
       <div className="absolute top-0 left-0 w-full h-px -translate-x-full group-hover/card:translate-x-full transition-transform duration-700 pointer-events-none bg-gradient-to-r from-transparent via-purple-400 to-transparent" />
@@ -140,8 +122,8 @@ const ContactCard = ({ icon, label, value, href, copyText, delay }) => {
       <motion.div
         className="absolute left-0 top-0 w-[2px] h-full rounded-l-2xl"
         animate={{
-          background: hov ? '#A78BFA' : 'rgba(255,255,255,0.04)',
-          boxShadow: hov ? '0 0 12px #A78BFA' : 'none',
+          background: hov ? "#A78BFA" : "rgba(255,255,255,0.04)",
+          boxShadow: hov ? "0 0 12px #A78BFA" : "none",
         }}
       />
 
@@ -149,16 +131,14 @@ const ContactCard = ({ icon, label, value, href, copyText, delay }) => {
         animate={{
           background: hov
             ? `rgba(${ACCENT_RGB},0.15)`
-            : 'rgba(255,255,255,0.04)',
-          borderColor: hov
-            ? 'rgba(167,139,250,0.3)'
-            : 'rgba(255,255,255,0.06)',
+            : "rgba(255,255,255,0.04)",
+          borderColor: hov ? "rgba(167,139,250,0.3)" : "rgba(255,255,255,0.06)",
         }}
         className="w-14 h-14 rounded-xl flex items-center justify-center shrink-0 border border-white/5"
       >
         <motion.div
           animate={{
-            color: hov ? '#F472B6' : 'rgba(255,255,255,0.3)',
+            color: hov ? "#F472B6" : "rgba(255,255,255,0.3)",
           }}
         >
           {icon}
@@ -172,9 +152,7 @@ const ContactCard = ({ icon, label, value, href, copyText, delay }) => {
 
         <motion.span
           animate={{
-            color: hov
-              ? 'rgba(255,255,255,0.92)'
-              : 'rgba(255,255,255,0.55)',
+            color: hov ? "rgba(255,255,255,0.92)" : "rgba(255,255,255,0.55)",
           }}
           className="font-black italic uppercase text-base md:text-lg tracking-tight truncate leading-none"
         >
@@ -202,14 +180,7 @@ const ContactCard = ({ icon, label, value, href, copyText, delay }) => {
             fill="none"
             stroke="#F472B6"
           >
-            <rect
-              x="9"
-              y="9"
-              width="13"
-              height="13"
-              rx="2"
-              strokeWidth="1.6"
-            />
+            <rect x="9" y="9" width="13" height="13" rx="2" strokeWidth="1.6" />
             <path
               d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"
               strokeWidth="1.6"
@@ -221,11 +192,10 @@ const ContactCard = ({ icon, label, value, href, copyText, delay }) => {
           animate={{
             opacity: hov ? 1 : 0.15,
             x: hov ? 0 : -4,
-            color: hov ? '#F472B6' : 'rgba(255,255,255,0.2)',
+            color: hov ? "#F472B6" : "rgba(255,255,255,0.2)",
           }}
-          className="text-xl font-black"
         >
-          ↗
+          <FaArrowUpRightFromSquare size={16} />
         </motion.div>
       </div>
     </motion.a>
@@ -237,20 +207,20 @@ const Contact = () => {
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
-    offset: ['start end', 'end start'],
+    offset: ["start end", "end start"],
   });
 
   const y = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    message: '',
+    name: "",
+    email: "",
+    message: "",
   });
 
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSend = async (e) => {
     e.preventDefault();
@@ -262,18 +232,14 @@ const Contact = () => {
     const message = formState.message.trim();
 
     if (!name || !email || !message) {
-      setErrorMessage('Please fill in all fields.');
+      setErrorMessage("Please fill in all fields.");
       setSent(false);
       return;
     }
 
-    if (
-      !EMAILJS_SERVICE_ID ||
-      !EMAILJS_TEMPLATE_ID ||
-      !EMAILJS_PUBLIC_KEY
-    ) {
+    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
       setErrorMessage(
-        'Email configuration is missing. Please check your .env file.'
+        "Email configuration is missing. Please check your .env file.",
       );
       setSent(false);
       return;
@@ -281,7 +247,7 @@ const Contact = () => {
 
     setSending(true);
     setSent(false);
-    setErrorMessage('');
+    setErrorMessage("");
 
     try {
       await emailjs.send(
@@ -295,18 +261,16 @@ const Contact = () => {
         },
         {
           publicKey: EMAILJS_PUBLIC_KEY,
-        }
+        },
       );
 
       setSent(true);
-      setFormState({ name: '', email: '', message: '' });
+      setFormState({ name: "", email: "", message: "" });
 
       setTimeout(() => setSent(false), 3000);
     } catch (error) {
-      console.error('Email sending failed:', error);
-      setErrorMessage(
-        'Message could not be sent. Please try again.'
-      );
+      console.error("Email sending failed:", error);
+      setErrorMessage("Message could not be sent. Please try again.");
     } finally {
       setSending(false);
     }
@@ -322,14 +286,14 @@ const Contact = () => {
 
         <div
           className="absolute inset-0 opacity-45"
-          style={{ backgroundImage: GRAIN, backgroundSize: '160px' }}
+          style={{ backgroundImage: GRAIN, backgroundSize: "160px" }}
         />
 
         <div
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[140px]"
           style={{
             background:
-              'radial-gradient(ellipse,rgba(167,139,250,0.05) 0%,transparent 70%)',
+              "radial-gradient(ellipse,rgba(167,139,250,0.05) 0%,transparent 70%)",
           }}
         />
       </div>
@@ -352,7 +316,7 @@ const Contact = () => {
             <h2
               className="font-black italic uppercase leading-none tracking-tighter text-white"
               style={{
-                fontSize: 'clamp(3.5rem,8vw,7rem)',
+                fontSize: "clamp(3.5rem,8vw,7rem)",
                 lineHeight: 0.92,
               }}
             >
@@ -393,7 +357,7 @@ const Contact = () => {
                   <path d="M2 7l10 7 10-7" />
                 </svg>
               }
-              href="mailto:shivamraj6436@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=shivamraj6436@gmail.com"
             />
 
             <ContactCard
@@ -476,9 +440,9 @@ const Contact = () => {
               <div className="flex items-center gap-3">
                 <div className="flex gap-1.5">
                   {[
-                    'rgba(255,59,48,0.5)',
-                    'rgba(255,196,0,0.5)',
-                    'rgba(50,215,75,0.5)',
+                    "rgba(255,59,48,0.5)",
+                    "rgba(255,196,0,0.5)",
+                    "rgba(50,215,75,0.5)",
                   ].map((c, i) => (
                     <div
                       key={i}
@@ -494,7 +458,7 @@ const Contact = () => {
               </div>
 
               <div className="text-[9px] font-mono text-indigo-400/40">
-                ● {sending ? 'sending' : sent ? 'sent' : 'ready'}
+                ● {sending ? "sending" : sent ? "sent" : "ready"}
               </div>
             </div>
 
@@ -519,7 +483,7 @@ const Contact = () => {
                   value={formState.name}
                   onChange={(e) => {
                     setFormState((p) => ({ ...p, name: e.target.value }));
-                    setErrorMessage('');
+                    setErrorMessage("");
                     setSent(false);
                   }}
                   placeholder='"Your Name"'
@@ -548,7 +512,7 @@ const Contact = () => {
                   value={formState.email}
                   onChange={(e) => {
                     setFormState((p) => ({ ...p, email: e.target.value }));
-                    setErrorMessage('');
+                    setErrorMessage("");
                     setSent(false);
                   }}
                   placeholder='"your@email.com"'
@@ -566,9 +530,7 @@ const Contact = () => {
                   const msg
                 </label>
 
-                <span className="text-white/10 font-mono text-sm mt-1">
-                  =
-                </span>
+                <span className="text-white/10 font-mono text-sm mt-1">=</span>
 
                 <textarea
                   id="contact-message"
@@ -577,7 +539,7 @@ const Contact = () => {
                   value={formState.message}
                   onChange={(e) => {
                     setFormState((p) => ({ ...p, message: e.target.value }));
-                    setErrorMessage('');
+                    setErrorMessage("");
                     setSent(false);
                   }}
                   placeholder='"Your message here..."'
@@ -607,10 +569,10 @@ const Contact = () => {
                 whileTap={!sending && !sent ? { scale: 0.98 } : {}}
                 className={`relative w-full py-3 rounded-xl font-black italic uppercase text-[11px] tracking-[0.2em] transition-all duration-500 overflow-hidden border ${
                   sent
-                    ? 'bg-green-500/10 border-green-500/30 text-green-400'
+                    ? "bg-green-500/10 border-green-500/30 text-green-400"
                     : sending
-                    ? 'bg-black border-purple-400/30 text-purple-300'
-                    : `bg-gradient-to-r ${GRADIENT_CLASS} text-black border-transparent`
+                      ? "bg-black border-purple-400/30 text-purple-300"
+                      : `bg-gradient-to-r ${GRADIENT_CLASS} text-black border-transparent`
                 }`}
               >
                 <AnimatePresence mode="wait">
@@ -659,7 +621,7 @@ const Contact = () => {
                         initial={{ scale: 0 }}
                         animate={{ scale: 1 }}
                         transition={{
-                          type: 'spring',
+                          type: "spring",
                           stiffness: 300,
                           damping: 12,
                         }}

@@ -36,9 +36,9 @@ const Contact = () => {
   };
 
   const socialLinks = [
-    { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/" },
-    { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/" },
-    { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/" },
+    { name: "LinkedIn", icon: Linkedin, url: "https://www.linkedin.com/in/shivam-raj-0148592a5" },
+    { name: "Instagram", icon: Instagram, url: "https://www.instagram.com/shivamm.63/" },
+    { name: "Facebook", icon: Facebook, url: "https://www.facebook.com/share/1HJ3b7ndUg/" },
   ];
 
   const inputStyle =
