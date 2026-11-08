@@ -15,7 +15,7 @@ import {
   useSpring,
   easeInOut,
 } from "framer-motion";
-import resumePDF from "../assets/resume1.0.pdf";
+import resumePDF from "../assets/resume.pdf";
 import TubesCursor from "./TubesCursor";
 import javascriptCert from "../assets/hackerrank.jpg";
 import  webDevelopmentCert from "../assets/w3.png";
